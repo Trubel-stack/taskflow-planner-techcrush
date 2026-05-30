@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="container">
+    <section class="hero">
+      <p class="tag">Daily Productivity Planner</p>
+      <h1>TaskFlow Planner</h1>
+      <p class="subtitle">
+        Plan your day, track your progress, and stay consistent with your goals.
+      </p>
+    </section>
+
+    <section class="dashboard">
+      <div class="card focus-card">
+        <h2>Today’s Focus</h2>
+        <input type="text" id="focusInput" placeholder="What is your main focus today?" />
+      </div>
+
+      <div class="card stats-card">
+        <div>
+          <h3 id="totalTasks">0</h3>
+          <p>Total Tasks</p>
+        </div>
+        <div>
+          <h3 id="completedTasks">0</h3>
+          <p>Completed</p>
+        </div>
+        <div>
+          <h3 id="progressPercent">0%</h3>
+          <p>Progress</p>
+        </div>
+      </div>
+
+      <div class="card progress-card">
+        <h2>Daily Progress</h2>
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="card task-card">
+        <h2>My Tasks</h2>
+
+        <div class="task-input">
+          <input type="text" id="taskInput" placeholder="Add a task for today..." />
+          <button onclick="addTask()">Add</button>
+        </div>
+
+        <ul id="taskList"></ul>
+      </div>
+
+      <div class="card motivation-card">
+        <h2>Motivation for Today</h2>
+        <textarea id="motivationInput" placeholder="Write one sentence to keep yourself going today..."></textarea>
+      </div>
+
+      <div class="card summary-card">
+        <h2>Today’s Summary</h2>
+        <p><strong>Focus:</strong> <span id="summaryFocus">Not set yet</span></p>
+        <p><strong>Progress:</strong> <span id="summaryProgress">0%</span></p>
+        <p><strong>Motivation:</strong> <span id="summaryMotivation">Not written yet</span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>TaskFlow Planner | Containerized Web App designed by Group 11 TechCrush Cohort 6</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

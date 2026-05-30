@@ -1,0 +1,225 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e1b4b);
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.container {
+  width: 92%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 50px 0;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.tag {
+  color: #38bdf8;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.hero h1 {
+  font-size: 58px;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  color: #cbd5e1;
+  font-size: 18px;
+  max-width: 650px;
+  margin: auto;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+  padding: 28px;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.card h2 {
+  margin-bottom: 18px;
+  color: #0f172a;
+}
+
+.focus-card,
+.progress-card,
+.task-card,
+.motivation-card,
+.summary-card {
+  grid-column: span 2;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+}
+
+textarea {
+  height: 110px;
+  resize: none;
+}
+
+.stats-card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  grid-column: span 2;
+}
+
+.stats-card h3 {
+  font-size: 38px;
+  color: #2563eb;
+}
+
+.stats-card p {
+  color: #475569;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 18px;
+  background: #e2e8f0;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+#progressFill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(to right, #38bdf8, #2563eb);
+  transition: 0.3s ease;
+}
+
+.task-input {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.task-input input {
+  flex: 1;
+}
+
+button {
+  border: none;
+  padding: 15px 24px;
+  background: #2563eb;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  background: #f1f5f9;
+  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-text {
+  flex: 1;
+}
+
+.completed .task-text {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.complete-btn {
+  background: #16a34a;
+}
+
+.complete-btn:hover {
+  background: #15803d;
+}
+
+.delete-btn {
+  background: #dc2626;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
+.summary-card p {
+  margin-bottom: 12px;
+  color: #334155;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .focus-card,
+  .progress-card,
+  .task-card,
+  .motivation-card,
+  .summary-card,
+  .stats-card {
+    grid-column: span 1;
+  }
+
+  .stats-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .task-input {
+    flex-direction: column;
+  }
+}
