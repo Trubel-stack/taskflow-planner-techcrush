@@ -973,3 +973,66 @@ circle {
     grid-column: span 1;
   }
 }
+@media (max-width: 600px) {
+  .cover-screen {
+    padding: 24px;
+    align-items: center;
+  }
+
+  .hero-intro {
+    top: 35px;
+    width: 90%;
+    z-index: 30;
+  }
+
+  .intro-tag {
+    font-size: 10px;
+    letter-spacing: 4px;
+  }
+
+  .hero-intro h2 {
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    display: none;
+  }
+
+  .book-wrapper {
+    transform: translateY(40px) scale(0.72);
+  }
+
+  .real-book {
+    width: 360px;
+    height: 470px;
+  }
+
+  .book-cover h1 {
+    font-size: 42px;
+  }
+
+  .book-cover p {
+    font-size: 16px;
+  }
+
+  .floating-panel {
+    opacity: 0.25;
+  }
+
+  .panel-one {
+    top: 110px;
+    left: -40px;
+    transform: scale(0.75) rotate(-8deg);
+  }
+
+  .panel-two {
+    right: -45px;
+    top: 130px;
+    transform: scale(0.7) rotate(10deg);
+  }
+
+  .panel-three {
+    display: none;
+  }
+}
