@@ -9,192 +9,280 @@
 <body>
 
   <section id="coverScreen" class="cover-screen">
-   <div class="workspace-glow"></div>
-<div class="floating-panel panel-one"></div>
-<div class="floating-panel panel-two"></div>
-<div class="floating-panel panel-three"></div>
+    <div class="workspace-glow"></div>
+    <div class="floating-panel panel-one"></div>
+    <div class="floating-panel panel-two"></div>
+    <div class="floating-panel panel-three"></div>
 
-<div class="hero-intro">
-  <p class="intro-tag">PRODUCTIVITY REIMAGINED</p>
-  <h2>Build Consistency. Every Day.</h2>
-</div>
-
-<div class="hero-intro">
-    <p class="intro-tag">PRODUCTIVITY REIMAGINED</p>
-    <h2>Build Consistency. Every Day.</h2>
-    <p class="hero-subtitle">
+    <div class="hero-intro">
+      <p class="intro-tag">PRODUCTIVITY REIMAGINED</p>
+      <h2>Build Consistency. Every Day.</h2>
+      <p class="hero-subtitle">
         Turn your goals into systems and your systems into results.
-    </p>
-</div>
+      </p>
+    </div>
 
     <div class="book-wrapper" onclick="openPlanner()">
-  <div class="real-book">
-    <div class="book-page back-page">
-      <h2>Welcome</h2>
-      <p>Your day begins here.</p>
-    </div>
+      <div class="real-book">
+        <div class="book-page back-page">
+          <h2>Welcome</h2>
+          <p>Your day begins here.</p>
+        </div>
 
-    <div class="book-page middle-page"></div>
+        <div class="book-page middle-page"></div>
 
-    <div class="book-cover">
-      <span class="book-icon">📖</span>
-      <h1>TaskFlow</h1>
-      <p>Plan. Focus. Execute.</p>
-      <button>Open Journal</button>
-      <p class="hint">
-    Your productivity journey starts here
-</p>
+        <div class="book-cover">
+          <span class="book-icon">📖</span>
+          <h1>TaskFlow</h1>
+          <p>Plan. Focus. Execute.</p>
+          <button>Open Journal →</button>
+          <p class="hint">Your productivity journey starts here</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   </section>
 
   <main id="plannerApp" class="planner hidden">
+
     <header class="topbar">
-  <div>
-    <p class="label">Daily Productivity Planner</p>
-    <h1 id="greeting">Good Day 👋</h1>
-    <p id="todayDate"></p>
-  </div>
-
-  <div class="top-actions">
-    <button class="theme-btn" onclick="toggleTheme()">🌙 Theme</button>
-    <button class="close-btn" onclick="closePlanner()">📖 Close Journal</button>
-  </div>
-</header>
-
-    <section class="stats-grid">
-      <div class="stat-card">
-        <h2 id="totalTasks">0</h2>
-        <p>Total Tasks</p>
+      <div>
+        <p class="label">Daily Productivity Planner</p>
+        <h1 id="greeting">Good Day 👋</h1>
+        <p id="todayDate"></p>
       </div>
 
-      <div class="stat-card">
-        <h2 id="completedTasks">0</h2>
-        <p>Completed</p>
+      <div class="top-actions">
+        <button class="theme-btn" onclick="toggleTheme()">🌙 Theme</button>
+        <button class="close-btn" onclick="closePlanner()">📖 Close Journal</button>
+      </div>
+    </header>
+
+    <nav class="journal-tabs">
+      <button class="tab-btn active" onclick="switchTab('dashboard', this)">📊 Dashboard</button>
+      <button class="tab-btn" onclick="switchTab('today', this)">📝 Today</button>
+      <button class="tab-btn" onclick="switchTab('goals', this)">🎯 Goals</button>
+      <button class="tab-btn" onclick="switchTab('notes', this)">📓 Notes</button>
+    </nav>
+
+    <section id="dashboard" class="tab-page active-page">
+
+      <section class="stats-grid">
+        <div class="stat-card">
+          <h2 id="totalTasks">0</h2>
+          <p>Total Tasks</p>
+        </div>
+
+        <div class="stat-card">
+          <h2 id="completedTasks">0</h2>
+          <p>Completed</p>
+        </div>
+
+        <div class="stat-card">
+          <h2 id="streakCount">0 🔥</h2>
+          <p>Day Streak</p>
+        </div>
+
+        <div class="stat-card">
+          <h2 id="score">0%</h2>
+          <p>Productivity Score</p>
+        </div>
+      </section>
+
+      <section class="insight-row">
+        <div class="insight-card">
+          <span>⚡</span>
+          <div>
+            <h3>Today’s Momentum</h3>
+            <p id="momentumText">Start by completing one task today.</p>
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <span>🏆</span>
+          <div>
+            <h3>Achievement</h3>
+            <p id="achievementText">No achievement yet. Keep going.</p>
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <span>💡</span>
+          <div>
+            <h3>Daily Quote</h3>
+            <p>Small progress, repeated daily, becomes transformation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="main-grid">
+
+        <div class="card focus-card">
+          <h2>Today’s Focus</h2>
+          <input id="focusInput" type="text" placeholder="What is the ONE thing that must happen today?" />
+        </div>
+
+        <div class="card progress-card">
+          <h2>Progress Ring</h2>
+          <div class="ring">
+            <svg>
+              <circle cx="80" cy="80" r="70"></circle>
+              <circle id="progressCircle" cx="80" cy="80" r="70"></circle>
+            </svg>
+            <div class="ring-text" id="progressText">0%</div>
+          </div>
+        </div>
+
+        <div class="card task-card">
+          <div class="task-header">
+            <h2>Today’s Tasks</h2>
+            <select id="categoryFilter" onchange="renderTasks()">
+              <option value="All">All</option>
+              <option value="Work">Work</option>
+              <option value="Study">Study</option>
+              <option value="Health">Health</option>
+              <option value="Personal">Personal</option>
+            </select>
+          </div>
+
+          <div class="task-inputs">
+            <input id="taskInput" type="text" placeholder="Add a new task..." />
+
+            <select id="priorityInput">
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+
+            <select id="categoryInput">
+              <option value="Work">Work</option>
+              <option value="Study">Study</option>
+              <option value="Health">Health</option>
+              <option value="Personal">Personal</option>
+            </select>
+
+            <button onclick="addTask()">Add</button>
+          </div>
+
+          <ul id="taskList"></ul>
+        </div>
+
+        <div class="card motivation-card">
+          <h2>Motivation for Today</h2>
+          <textarea id="motivationInput" placeholder="Write one sentence to keep yourself going today..."></textarea>
+        </div>
+
+        <div class="card summary-card">
+          <h2>Daily Summary</h2>
+          <p><strong>Focus:</strong> <span id="summaryFocus">Not set yet</span></p>
+          <p><strong>Motivation:</strong> <span id="summaryMotivation">Not written yet</span></p>
+          <p><strong>Best Day:</strong> <span id="bestDay">No best day yet</span></p>
+        </div>
+
+        <div class="card insights-card">
+          <div class="insights-header">
+            <div>
+              <p class="mini-label">Weekly Overview</p>
+              <h2>Productivity Insights</h2>
+            </div>
+            <span class="insight-icon">📈</span>
+          </div>
+
+          <div class="insights-content">
+            <div class="insight-metric">
+              <span>🔥</span>
+              <div>
+                <h3 id="insightStreak">0 Days</h3>
+                <p>Current Streak</p>
+              </div>
+            </div>
+
+            <div class="insight-metric">
+              <span>✅</span>
+              <div>
+                <h3 id="insightCompleted">0 Tasks</h3>
+                <p>Tasks Completed</p>
+              </div>
+            </div>
+
+            <div class="insight-metric">
+              <span>🎯</span>
+              <div>
+                <h3 id="insightRate">0%</h3>
+                <p>Completion Rate</p>
+              </div>
+            </div>
+
+            <div class="insight-metric">
+              <span>🏆</span>
+              <div>
+                <h3 id="insightBestDay">No best day yet</h3>
+                <p>Best Performance</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </section>
+
+    <section id="today" class="tab-page">
+      <div class="page-heading">
+        <p class="mini-label">Today’s Planner</p>
+        <h2>Plan Your Day With Intention</h2>
       </div>
 
-      <div class="stat-card">
-        <h2 id="streakCount">0 🔥</h2>
-        <p>Day Streak</p>
-      </div>
+      <div class="today-layout">
+        <div class="card focus-card">
+          <h2>Today’s Focus</h2>
+          <input id="todayFocusMirror" type="text" placeholder="What must be done today?" />
+        </div>
 
-      <div class="stat-card">
-        <h2 id="score">0%</h2>
-        <p>Productivity Score</p>
+        <div class="card task-card">
+          <h2>Focused Task List</h2>
+          <p class="soft-text">Use the dashboard task list to add, complete, filter, and manage today’s tasks.</p>
+        </div>
+
+        <div class="card motivation-card">
+          <h2>Reflection Prompt</h2>
+          <p class="soft-text">What is one thing you are grateful for today?</p>
+          <textarea id="reflectionInput" placeholder="Write your short reflection here..."></textarea>
+        </div>
       </div>
     </section>
 
-    <section class="main-grid">
-      <div class="card focus-card">
-        <h2>Today’s Focus</h2>
-        <input id="focusInput" type="text" placeholder="What is the ONE thing that must happen today?" />
+    <section id="goals" class="tab-page">
+      <div class="page-heading">
+        <p class="mini-label">Goal Setting</p>
+        <h2>Turn Big Dreams Into Trackable Goals</h2>
       </div>
 
-      <div class="card progress-card">
-        <h2>Progress Ring</h2>
-        <div class="ring">
-          <svg>
-            <circle cx="80" cy="80" r="70"></circle>
-            <circle id="progressCircle" cx="80" cy="80" r="70"></circle>
-          </svg>
-          <div class="ring-text" id="progressText">0%</div>
-        </div>
+      <div class="goal-input-row">
+        <input id="goalInput" type="text" placeholder="Add a new goal..." />
+
+        <select id="goalCategory">
+          <option value="Personal">Personal</option>
+          <option value="Career">Career</option>
+          <option value="Study">Study</option>
+          <option value="Health">Health</option>
+        </select>
+
+        <button onclick="addGoal()">Add Goal</button>
       </div>
 
-      <div class="card task-card">
-        <div class="task-header">
-          <h2>Today’s Tasks</h2>
-          <select id="categoryFilter" onchange="renderTasks()">
-            <option value="All">All</option>
-            <option value="Work">Work</option>
-            <option value="Study">Study</option>
-            <option value="Health">Health</option>
-            <option value="Personal">Personal</option>
-          </select>
-        </div>
-
-        <div class="task-inputs">
-          <input id="taskInput" type="text" placeholder="Add a new task..." />
-
-          <select id="priorityInput">
-            <option value="High">High</option>
-            <option value="Medium" selected>Medium</option>
-            <option value="Low">Low</option>
-          </select>
-
-          <select id="categoryInput">
-            <option value="Work">Work</option>
-            <option value="Study">Study</option>
-            <option value="Health">Health</option>
-            <option value="Personal">Personal</option>
-          </select>
-
-          <button onclick="addTask()">Add</button>
-        </div>
-
-        <ul id="taskList"></ul>
-      </div>
-
-      <div class="card motivation-card">
-        <h2>Motivation for Today</h2>
-        <textarea id="motivationInput" placeholder="Write one sentence to keep yourself going today..."></textarea>
-      </div>
-
-      <div class="card summary-card">
-        <h2>Daily Summary</h2>
-        <p><strong>Focus:</strong> <span id="summaryFocus">Not set yet</span></p>
-        <p><strong>Motivation:</strong> <span id="summaryMotivation">Not written yet</span></p>
-        <p><strong>Best Day:</strong> <span id="bestDay">No best day yet</span></p>
-      </div>
-
-
-
-     <div class="card insights-card">
-  <div class="insights-header">
-    <div>
-      <p class="mini-label">Weekly Overview</p>
-      <h2>Productivity Insights</h2>
-    </div>
-    <span class="insight-icon">📈</span>
-  </div>
-
-  <div class="insights-content">
-    <div class="insight-metric">
-      <span>🔥</span>
-      <div>
-        <h3 id="insightStreak">0 Days</h3>
-        <p>Current Streak</p>
-      </div>
-    </div>
-
-    <div class="insight-metric">
-      <span>✅</span>
-      <div>
-        <h3 id="insightCompleted">0 Tasks</h3>
-        <p>Tasks Completed</p>
-      </div>
-    </div>
-
-    <div class="insight-metric">
-      <span>🎯</span>
-      <div>
-        <h3 id="insightRate">0%</h3>
-        <p>Completion Rate</p>
-      </div>
-    </div>
-
-    <div class="insight-metric">
-      <span>🏆</span>
-      <div>
-        <h3 id="insightBestDay">No best day yet</h3>
-        <p>Best Performance</p>
-      </div>
-    </div>
-  </div>
-</div>
-
+      <div id="goalList" class="goal-grid"></div>
     </section>
+
+    <section id="notes" class="tab-page">
+      <div class="page-heading">
+        <p class="mini-label">Journal Notes</p>
+        <h2>Capture Thoughts, Ideas, and Lessons</h2>
+      </div>
+
+      <div class="card notes-card">
+        <textarea id="notesInput" placeholder="Write your notes here..."></textarea>
+      </div>
+    </section>
+
   </main>
 
   <script src="script.js"></script>

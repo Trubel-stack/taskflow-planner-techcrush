@@ -267,6 +267,9 @@ focusInput.addEventListener("input", () => {
   focus = focusInput.value;
   localStorage.setItem("taskflowFocus", focus);
   summaryFocus.textContent = focus || "Not set yet";
+  
+  const todayFocusMirror = document.getElementById("todayFocusMirror");
+if (todayFocusMirror) todayFocusMirror.value = focus;
 });
 
 motivationInput.addEventListener("input", () => {
@@ -300,3 +303,129 @@ function initializeApp() {
 }
 
 initializeApp();
+
+let goals = JSON.parse(localStorage.getItem("taskflowGoals")) || [];
+let notes = localStorage.getItem("taskflowNotes") || "";
+let reflection = localStorage.getItem("taskflowReflection") || "";
+
+function switchTab(tabId, button) {
+  document.querySelectorAll(".tab-page").forEach(page => {
+    page.classList.remove("active-page");
+  });
+
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  document.getElementById(tabId).classList.add("active-page");
+  button.classList.add("active");
+
+  window.scrollTo(0, 0);
+}
+
+function addGoal() {
+  const goalInput = document.getElementById("goalInput");
+  const goalCategory = document.getElementById("goalCategory");
+
+  const text = goalInput.value.trim();
+
+  if (!text) {
+    alert("Please enter a goal.");
+    return;
+  }
+
+  const goal = {
+    id: Date.now(),
+    text,
+    category: goalCategory.value,
+    completed: false
+  };
+
+  goals.push(goal);
+  goalInput.value = "";
+  saveGoals();
+  renderGoals();
+}
+
+function toggleGoal(id) {
+  goals = goals.map(goal => {
+    if (goal.id === id) {
+      return { ...goal, completed: !goal.completed };
+    }
+
+    return goal;
+  });
+
+  saveGoals();
+  renderGoals();
+}
+
+function deleteGoal(id) {
+  goals = goals.filter(goal => goal.id !== id);
+  saveGoals();
+  renderGoals();
+}
+
+function renderGoals() {
+  const goalList = document.getElementById("goalList");
+
+  if (!goalList) return;
+
+  goalList.innerHTML = "";
+
+  goals.forEach(goal => {
+    const div = document.createElement("div");
+    div.className = "goal-item";
+
+    div.innerHTML = `
+      <h3>${goal.completed ? "✅" : "🎯"} ${goal.text}</h3>
+      <p>${goal.category} Goal</p>
+      <div class="actions">
+        <button class="done-btn" onclick="toggleGoal(${goal.id})">
+          ${goal.completed ? "Undo" : "Complete"}
+        </button>
+        <button class="delete-btn" onclick="deleteGoal(${goal.id})">
+          Delete
+        </button>
+      </div>
+    `;
+
+    goalList.appendChild(div);
+  });
+}
+
+function saveGoals() {
+  localStorage.setItem("taskflowGoals", JSON.stringify(goals));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const notesInput = document.getElementById("notesInput");
+  const reflectionInput = document.getElementById("reflectionInput");
+  const todayFocusMirror = document.getElementById("todayFocusMirror");
+
+  if (notesInput) {
+    notesInput.value = notes;
+    notesInput.addEventListener("input", () => {
+      localStorage.setItem("taskflowNotes", notesInput.value);
+    });
+  }
+
+  if (reflectionInput) {
+    reflectionInput.value = reflection;
+    reflectionInput.addEventListener("input", () => {
+      localStorage.setItem("taskflowReflection", reflectionInput.value);
+    });
+  }
+
+  if (todayFocusMirror) {
+    todayFocusMirror.value = focus;
+    todayFocusMirror.addEventListener("input", () => {
+      focus = todayFocusMirror.value;
+      focusInput.value = focus;
+      localStorage.setItem("taskflowFocus", focus);
+      summaryFocus.textContent = focus || "Not set yet";
+    });
+  }
+
+  renderGoals();
+});
